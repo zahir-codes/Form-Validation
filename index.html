@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <div
+      class="col-sm-6 mx-auto p-5 mt-5 border boredr-5 border-warning shadow-lg"
+    >
+      <h1 class="text-center mb-3">
+        Form <span class="text-danger">Validation</span>
+      </h1>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        placeholder="Enter your name"
+      />
+      <p class="text-danger ps-1" id="nameError"></p>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        placeholder="Enter your email"
+      />
+      <p class="text-danger ps-1" id="emailError"></p>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        placeholder="Enter your password"
+      />
+      <p class="text-danger ps-1" id="passwordError"></p>
+      <input
+        type="number"
+        id="mobile"
+        class="form-control"
+        placeholder="Enter your mobile no."
+      />
+      <p class="text-danger ps-1" id="mobileError"></p>
+      <button onclick="demo()" class="btn btn-success form-control">
+        Submit
+      </button>
+    </div>
+    <script>
+      const demo = () => {
+        // Input Field =============
+        let nameRef = document.querySelector("#name");
+        let email = document.querySelector("#email");
+        let password = document.querySelector("#password");
+        let mobile = document.querySelector("#mobile");
+        // Error Field =============
+        let nameError = document.querySelector("#nameError");
+        let emailError = document.querySelector("#emailError");
+        let passwordError = document.querySelector("#passwordError");
+        let mobileError = document.querySelector("#mobileError");
+        // Reset Error msg ==============
+        nameError.innerHTML = "";
+        emailError.innerHTML = "";
+        passwordError.innerHTML = "";
+        mobileError.innerHTML = "";
+        let isValid = true;
+        // Name Validation ==============
+        let nameRegex = /^[A-Za-z]{2,}$/;
+        if (nameRef.value.trim() === "") {
+          nameError.innerHTML = "This field is required";
+          isValid = false;
+        } else if (nameRef.value.length < 2) {
+          nameError.innerHTML = "Minimum 2 char is Allowed";
+          isValid = false;
+        } else if (nameRef.value.length > 16) {
+          nameError.innerHTML = "Maximum 16 char is Allowed";
+          isValid = false;
+        } else if (!nameRegex.test(nameRef.value)) {
+          nameError.innerHTML = "Only char is Allowed";
+          isValid = false;
+        }
+        // Email Validation
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email.value.trim() === "") {
+          emailError.innerHTML = "Email field is required";
+          isValid = false;
+        } else if (email.value.length < 5) {
+          emailError.innerHTML = "Email must be at least 5 characters";
+          isValid = false;
+        } else if (email.value.length > 30) {
+          emailError.innerHTML = "Email cannot exceed 30 characters";
+          isValid = false;
+        } else if (!emailRegex.test(email.value)) {
+          emailError.innerHTML =
+            "Please enter a valid email (example: name@gmail.com)";
+          isValid = false;
+        }
+        // Password Validation
+        let passwordRegex =
+          /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,16}$/;
+
+        if (password.value.trim() === "") {
+          passwordError.innerHTML = "Password field is required";
+          isValid = false;
+        } else if (password.value.length < 6) {
+          passwordError.innerHTML = "Password must be at least 6 characters";
+          isValid = false;
+        } else if (password.value.length > 16) {
+          passwordError.innerHTML = "Password cannot exceed 16 characters";
+          isValid = false;
+        } else if (!passwordRegex.test(password.value)) {
+          passwordError.innerHTML =
+            "Password must include (A-Z, a-z, 0-9, special character)";
+          isValid = false;
+        }
+
+        // Mobile Number Validation
+        let mobileRegex = /^[6-9]\d{9}$/;
+
+        if (mobile.value.trim() === "") {
+          mobileError.innerHTML = "Mobile number is required";
+          isValid = false;
+        } else if (!mobileRegex.test(mobile.value)) {
+          mobileError.innerHTML =
+            "Please enter a valid 10-digit Indian mobile number";
+          isValid = false;
+        }
+        // IF ALL VALID => SUCCESS
+        else if (isValid === true) {
+          alert("Successfully Submitted!");
+          return true;   // form submit hoga
+        }
+
+        return false;    // validation fail => form submit nahi hoga
+      };
+    </script>
+  </body>
+</html>
